@@ -306,12 +306,12 @@ export default function Opening() {
             style={{ padding: '0 10%' }}
           >
             {/* Subtle bg hint for later phases */}
-            {['revelation', 'mission', 'cta'].includes(phase) && (
+            {['case', 'suspect', 'revelation', 'mission', 'cta'].includes(phase) && (
               <div className="absolute inset-0" style={{
-                backgroundImage: "url('/images/ch1_bg.png')",
+                backgroundImage: "url('/images/opening_desk.png')",
                 backgroundSize: 'cover',
-                backgroundPosition: 'center 40%',
-                filter: 'brightness(0.08) blur(2px)',
+                backgroundPosition: 'center 30%',
+                filter: 'brightness(0.12) blur(1px)',
               }} />
             )}
 

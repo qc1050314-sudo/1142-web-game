@@ -24,9 +24,9 @@ export default function LandingPage() {
         animate={{ scale: [1, 1.04, 1] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         style={{
-          backgroundImage: "url('/images/ch1_bg.png')",
+          backgroundImage: "url('/images/landing_bg.png')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center 40%',
+          backgroundPosition: 'center 35%',
           transformOrigin: 'center center',
         }}
       />
