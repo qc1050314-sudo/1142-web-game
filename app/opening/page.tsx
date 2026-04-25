@@ -9,13 +9,15 @@ type Phase = 'black' | 'flash' | 'case' | 'suspect' | 'revelation' | 'mission' |
 const PHASE_ORDER: Phase[] = ['black', 'flash', 'case', 'suspect', 'revelation', 'mission', 'cta']
 
 const FLASH_FRAMES: { src?: string; bg?: string; filter?: string; duration: number }[] = [
-  { src: '/images/ch1_glass.png',    filter: 'brightness(0.8) contrast(1.2)',                          duration: 700 },
-  { bg: '#0d0000',                                                                                      duration: 400 },
-  { src: '/images/ch1_cutscene.png', filter: 'brightness(0.28) hue-rotate(320deg) saturate(2.8)',      duration: 800 },
-  { bg: '#000000',                                                                                      duration: 300 },
-  { src: '/images/ch1_ledger.png',   filter: 'brightness(0.65) sepia(0.5) contrast(1.1)',              duration: 700 },
-  { bg: '#080000',                                                                                      duration: 350 },
-  { src: '/images/ch1_card.png',     filter: 'brightness(0.78)',                                        duration: 750 },
+  { src: '/images/flash_glass.png',     filter: 'brightness(0.85)',                    duration: 750 },
+  { bg: '#000',                                                                         duration: 180 },
+  { src: '/images/flash_accordion.png', filter: 'brightness(0.78)',                    duration: 700 },
+  { bg: '#000',                                                                         duration: 180 },
+  { src: '/images/flash_street.png',    filter: 'brightness(0.72)',                    duration: 750 },
+  { bg: '#000',                                                                         duration: 180 },
+  { src: '/images/flash_blood.png',     filter: 'brightness(0.7) contrast(1.1)',       duration: 900 },
+  { bg: '#000',                                                                         duration: 180 },
+  { src: '/images/flash_joss.png',      filter: 'brightness(0.8)',                     duration: 800 },
 ]
 
 /* ── sub-scenes ── */
