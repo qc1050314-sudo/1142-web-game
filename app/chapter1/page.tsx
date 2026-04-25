@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import type { CSSProperties } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import { fadeOutOpeningMusic } from '@/lib/openingAudio'
 
 type EvidenceId = 'ledger' | 'glass' | 'engraved' | 'card'
 
@@ -91,6 +92,8 @@ export default function Chapter1() {
   const [hoveredId, setHoveredId] = useState<EvidenceId | null>(null)
 
   const canSolve = NEED_FOR_PUZZLE.every(id => inventory.has(id))
+
+  useEffect(() => { fadeOutOpeningMusic() }, [])
 
   function pick(id: EvidenceId) {
     setInventory(prev => new Set([...prev, id]))

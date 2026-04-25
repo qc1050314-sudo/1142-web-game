@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { startOpeningMusic } from '@/lib/openingAudio'
 
 export default function LandingPage() {
   const router = useRouter()
@@ -122,7 +123,7 @@ export default function LandingPage() {
           >
             {/* 開始遊戲 */}
             <motion.button
-              onClick={() => router.push('/opening')}
+              onClick={() => { startOpeningMusic(); router.push('/opening') }}
               whileHover={{ scale: 1.04, boxShadow: '0 0 36px rgba(200,150,45,0.25)' }}
               whileTap={{ scale: 0.97 }}
               style={{
