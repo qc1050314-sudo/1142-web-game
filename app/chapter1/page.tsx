@@ -92,8 +92,13 @@ export default function Chapter1() {
   const [hoveredId, setHoveredId] = useState<EvidenceId | null>(null)
 
   const canSolve = NEED_FOR_PUZZLE.every(id => inventory.has(id))
+  const [introVisible, setIntroVisible] = useState(true)
 
-  useEffect(() => { fadeOutOpeningMusic() }, [])
+  useEffect(() => {
+    fadeOutOpeningMusic()
+    const t = setTimeout(() => setIntroVisible(false), 3000)
+    return () => clearTimeout(t)
+  }, [])
 
   function pick(id: EvidenceId) {
     setInventory(prev => new Set([...prev, id]))
@@ -571,6 +576,47 @@ export default function Chapter1() {
                 收入口袋
               </button>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Chapter title card */}
+      <AnimatePresence>
+        {introVisible && (
+          <motion.div
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center pointer-events-none"
+            style={{ background: '#000' }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: 'easeInOut' }}
+          >
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.9 }}
+              style={{
+                color: '#6a4820',
+                fontSize: '0.55rem',
+                letterSpacing: '0.55em',
+                fontFamily: 'sans-serif',
+                marginBottom: 14,
+              }}
+            >
+              CHAPTER  I
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 1 }}
+              style={{
+                color: '#e8c870',
+                fontSize: '2.4rem',
+                letterSpacing: '0.35em',
+                fontFamily: 'serif',
+                textShadow: '0 0 50px rgba(232,200,112,0.3), 0 4px 20px rgba(0,0,0,0.9)',
+              }}
+            >
+              五月花歌廳
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
