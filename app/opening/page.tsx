@@ -9,15 +9,15 @@ type Phase = 'black' | 'flash' | 'case' | 'suspect' | 'revelation' | 'mission' |
 const PHASE_ORDER: Phase[] = ['black', 'flash', 'case', 'suspect', 'revelation', 'mission', 'cta']
 
 const FLASH_FRAMES: { src?: string; bg?: string; filter?: string; duration: number }[] = [
-  { src: '/images/flash_glass.png',     filter: 'brightness(0.85)',                    duration: 750 },
+  { src: '/images/flash_glass.png',     filter: 'brightness(0.85)',                    duration: 1200 },
   { bg: '#000',                                                                         duration: 180 },
-  { src: '/images/flash_accordion.png', filter: 'brightness(0.78)',                    duration: 700 },
+  { src: '/images/flash_accordion.png', filter: 'brightness(0.78)',                    duration: 1200 },
   { bg: '#000',                                                                         duration: 180 },
-  { src: '/images/flash_street.png',    filter: 'brightness(0.72)',                    duration: 750 },
+  { src: '/images/flash_street.png',    filter: 'brightness(0.72)',                    duration: 1200 },
   { bg: '#000',                                                                         duration: 180 },
-  { src: '/images/flash_blood.png',     filter: 'brightness(0.7) contrast(1.1)',       duration: 900 },
+  { src: '/images/flash_blood.png',     filter: 'brightness(0.7) contrast(1.1)',       duration: 1200 },
   { bg: '#000',                                                                         duration: 180 },
-  { src: '/images/flash_joss.png',      filter: 'brightness(0.8)',                     duration: 800 },
+  { src: '/images/flash_joss.png',      filter: 'brightness(0.8)',                     duration: 1200 },
 ]
 
 /* ── sub-scenes ── */
