@@ -20,18 +20,18 @@ export default function Ending() {
     <>
       {
         (counter == 0) &&
-        <div className='flex justify-center items-center w-full h-full relative'>
+        <div className='bg-black text-[#e8c870] font-[serif] tracking-widest flex justify-center items-center w-full h-full relative'>
           <div className='text-[32px] absolute top-8'>最終提問</div>
-          <div className='flex flex-col justify-center items-center gap-2'>
+          <div className='flex flex-col justify-center items-center gap-6'>
             <div className='text-[32px]'>請問娟娟殺人的動機是什麼？</div>
-            <div className='flex justify-around items-center gap-2 p-1'>
-              <div onClick={ending1} className='border-2 border-black rounded-2xl p-2'>
+            <div className='flex justify-around items-center w-full gap-2 p-1'>
+              <div onClick={ending1} className='border-1 border-[#e8c870] hover:bg-[#e8c870] hover:text-black p-2'>
                 A. 蓄意謀殺
               </div>
-              <div onClick={ending1} className='border-2 border-black rounded-2xl p-2'>
+              <div onClick={ending1} className='border-1 border-[#e8c870] hover:bg-[#e8c870] hover:text-black p-2'>
                 B. 毒品失控
               </div>
-              <div onClick={ending2} className='border-2 border-black rounded-2xl p-2'>
+              <div onClick={ending2} className='border-1 border-[#e8c870] hover:bg-[#e8c870] hover:text-black p-2'>
                 C. 自我防衛
               </div>
 
