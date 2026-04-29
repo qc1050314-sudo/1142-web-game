@@ -1,110 +1,192 @@
-const members = [
-  { name: "👑 黃婷筠", romanized: "HUANG TING-YUN",  id: "110306053", role: "隊長", crown: true },
-  { name: "林沁儒",  romanized: "LIN CHIN-JU",     id: "111306019", role: "組員", crown: false },
-  { name: "王莉騏",  romanized: "WANG LI-CHI",     id: "111306023", role: "組員", crown: false },
-  { name: "張雅媗",  romanized: "CHANG YA-HSUAN",  id: "110405134", role: "組員", crown: false },
-  { name: "張筠榛",  romanized: "CHANG YUN-CHEN",  id: "111203056", role: "組員", crown: false },
-];
+'use client'
 
-function GroupAvatar() {
-  return (
-    <svg viewBox="0 0 200 80" width="200" height="80" fill="none" stroke="#a8b8c8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      {/* 5 busts evenly spaced */}
-      {[20, 55, 100, 145, 180].map((cx, i) => (
-        <g key={i}>
-          <circle cx={cx} cy="28" r="12" />
-          {/* crown for leader */}
-          {i === 0 ? (
-            <path d={`M${cx - 10} 18 L${cx - 5} 11 L${cx} 15 L${cx + 5} 11 L${cx + 10} 18`} />
-          ) : (
-            <path d={`M${cx - 10} 17 Q${cx} 11 ${cx + 10} 17`} />
-          )}
-          <path d={`M${cx - 14} 70 Q${cx - 14} 54 ${cx} 52 Q${cx + 14} 54 ${cx + 14} 70`} />
-        </g>
-      ))}
-    </svg>
-  );
-}
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { startOpeningMusic } from '@/lib/openingAudio'
 
-export default function Home() {
+export default function LandingPage() {
+  const router = useRouter()
+  const [hasStarted, setHasStarted] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    if (localStorage.getItem('ch1_started')) setHasStarted(true)
+  }, [])
+
   return (
-    <div
-      style={{ background: "#e8eaf0", minHeight: "100vh" }}
-      className="flex items-center justify-center py-16 px-4"
-    >
-      <div
+    <div className="relative h-full w-full overflow-hidden select-none">
+
+      {/* Background — subtle breathing scale */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ scale: [1, 1.04, 1] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         style={{
-          background: "linear-gradient(160deg, #1c2535 0%, #1a2030 60%, #151c2a 100%)",
-          borderRadius: "28px",
-          width: "300px",
-          boxShadow: "0 12px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
+          backgroundImage: "url('/images/landing_bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 35%',
+          transformOrigin: 'center center',
         }}
-        className="flex flex-col items-center pt-12 pb-10 px-8"
+      />
+
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.88) 100%)',
+      }} />
+
+      {/* Subtle light flicker */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={{ opacity: [0, 0.025, 0, 0.018, 0, 0.032, 0, 0.01, 0] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: 'linear' }}
+        style={{ background: '#fff8e0' }}
+      />
+
+      {/* Content */}
+      {mounted && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+
+          {/* Era badge */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1.2 }}
+            style={{
+              color: '#5a3a10',
+              fontSize: '0.58rem',
+              letterSpacing: '0.55em',
+              fontFamily: 'sans-serif',
+              marginBottom: 22,
+              textShadow: '0 2px 12px rgba(0,0,0,0.9)',
+            }}
+          >
+            1968　臺灣
+          </motion.p>
+
+          {/* Main title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 1.4, ease: 'easeOut' }}
+            style={{
+              color: '#e8c870',
+              fontSize: '4.8rem',
+              letterSpacing: '0.55em',
+              fontFamily: 'serif',
+              lineHeight: 1,
+              paddingLeft: '0.55em',
+              textShadow: '0 0 80px rgba(232,200,112,0.32), 0 0 20px rgba(232,200,112,0.18), 0 4px 28px rgba(0,0,0,0.95)',
+            }}
+          >
+            孤戀花
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.9, duration: 1.1 }}
+            style={{
+              color: '#7a5a28',
+              fontSize: '0.68rem',
+              letterSpacing: '0.5em',
+              fontFamily: 'sans-serif',
+              marginTop: 16,
+              textShadow: '0 2px 12px rgba(0,0,0,0.9)',
+            }}
+          >
+            一場未解的命案
+          </motion.p>
+
+          {/* Divider */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ delay: 2.6, duration: 0.9, ease: 'easeOut' }}
+            style={{
+              width: 110,
+              height: 1,
+              background: 'linear-gradient(to right, transparent, rgba(200,160,64,0.5), transparent)',
+              margin: '38px 0',
+            }}
+          />
+
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.0, duration: 0.9 }}
+            className="flex flex-col items-center gap-3"
+          >
+            {/* 開始遊戲 */}
+            <motion.button
+              onClick={() => { startOpeningMusic(); router.push('/opening') }}
+              whileHover={{ scale: 1.04, boxShadow: '0 0 36px rgba(200,150,45,0.25)' }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                padding: '13px 56px',
+                background: 'rgba(200,150,45,0.14)',
+                border: '1px solid rgba(200,150,45,0.7)',
+                borderRadius: 2,
+                color: '#e0b040',
+                fontSize: '0.8rem',
+                letterSpacing: '0.45em',
+                fontFamily: 'sans-serif',
+                cursor: 'pointer',
+                boxShadow: '0 0 20px rgba(200,150,45,0.12)',
+                transition: 'box-shadow 0.3s',
+              }}
+            >
+              開始遊戲
+            </motion.button>
+
+            {/* 繼續遊戲 */}
+            <motion.button
+              onClick={() => { if (hasStarted) router.push('/chapter1') }}
+              whileHover={hasStarted ? { scale: 1.03 } : {}}
+              whileTap={hasStarted ? { scale: 0.97 } : {}}
+              style={{
+                padding: '11px 56px',
+                background: 'transparent',
+                border: `1px solid ${hasStarted ? 'rgba(180,135,55,0.48)' : 'rgba(55,42,18,0.45)'}`,
+                borderRadius: 2,
+                color: hasStarted ? '#8a6828' : '#382a10',
+                fontSize: '0.75rem',
+                letterSpacing: '0.45em',
+                fontFamily: 'sans-serif',
+                cursor: hasStarted ? 'pointer' : 'default',
+              }}
+            >
+              繼續遊戲
+            </motion.button>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Credits link */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 4, duration: 1.2 }}
+        className="absolute"
+        style={{ bottom: 20, right: 24 }}
       >
-        {/* Group avatar */}
-        <div style={{ opacity: 0.8 }}>
-          <GroupAvatar />
-        </div>
-
-        {/* Divider */}
-        <div style={{ width: "50px", height: "1px", background: "rgba(168,184,200,0.25)", margin: "16px 0 14px" }} />
-
-        {/* Group title */}
-        <p style={{ color: "#c8d8e8", fontSize: "0.65rem", letterSpacing: "0.3em", fontFamily: "sans-serif" }}>
-          1142 WEB GAME
-        </p>
-
-        {/* Divider */}
-        <div style={{ width: "50px", height: "1px", background: "rgba(168,184,200,0.15)", margin: "14px 0 16px" }} />
-
-        {/* Member list */}
-        <div className="flex flex-col items-center gap-4 w-full">
-          {members.map((member, i) => (
-            <div key={member.id} className="flex flex-col items-center">
-              <div className="flex items-baseline gap-2">
-                <p style={{
-                  color: member.crown ? "#d8e8f8" : "#a8c0d8",
-                  fontSize: member.crown ? "1.1rem" : "0.95rem",
-                  fontWeight: member.crown ? 700 : 500,
-                  letterSpacing: "0.18em",
-                  textShadow: "0 1px 0 rgba(0,0,0,0.5), 0 -1px 0 rgba(255,255,255,0.05)",
-                  fontFamily: "serif",
-                }}>
-                  {member.name}
-                </p>
-                <p style={{
-                  color: member.crown ? "#9ab8d0" : "#5a7a98",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.15em",
-                  fontFamily: "sans-serif",
-                }}>
-                  {member.role}
-                </p>
-              </div>
-              <p style={{
-                color: "#506a88",
-                fontSize: "0.6rem",
-                letterSpacing: "0.2em",
-                fontFamily: "monospace",
-                marginTop: "2px",
-              }}>
-                {member.id}
-              </p>
-              {i < members.length - 1 && (
-                <div style={{ width: "24px", height: "1px", background: "rgba(168,184,200,0.1)", marginTop: "12px" }} />
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom divider */}
-        <div style={{ width: "50px", height: "1px", background: "rgba(168,184,200,0.15)", margin: "18px 0 14px" }} />
-
-        {/* Footer */}
-        <p style={{ color: "#3a5a78", fontSize: "0.55rem", letterSpacing: "0.25em", fontFamily: "sans-serif" }}>
-          國立政治大學
-        </p>
-      </div>
+        <Link
+          href="/credits"
+          style={{
+            color: '#2e2010',
+            fontSize: '0.5rem',
+            letterSpacing: '0.28em',
+            fontFamily: 'sans-serif',
+            textDecoration: 'none',
+          }}
+        >
+          關於本作
+        </Link>
+      </motion.div>
     </div>
-  );
+  )
 }
